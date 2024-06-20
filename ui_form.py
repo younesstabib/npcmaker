@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
     QTabWidget, QWidget)
 
+
 class Ui_Widget(object):
     def setupUi(self, Widget):
         if not Widget.objectName():
@@ -38,9 +39,6 @@ class Ui_Widget(object):
         self.npclabel.setFrameShape(QFrame.StyledPanel)
         self.npclabel.setAlignment(Qt.AlignCenter)
         self.npclist = QComboBox(self.mapnpc)
-        self.npclist.addItem("")
-        self.npclist.addItem("")
-        self.npclist.addItem("")
         self.npclist.setObjectName(u"npclist")
         self.npclist.setGeometry(QRect(10, 40, 161, 22))
         self.npclist.setEditable(False)
@@ -61,9 +59,6 @@ class Ui_Widget(object):
         self.maplabel.setFrameShape(QFrame.StyledPanel)
         self.maplabel.setAlignment(Qt.AlignCenter)
         self.maplist = QComboBox(self.mapnpc)
-        self.maplist.addItem("")
-        self.maplist.addItem("")
-        self.maplist.addItem("")
         self.maplist.setObjectName(u"maplist")
         self.maplist.setGeometry(QRect(200, 100, 171, 22))
         self.posxlabel = QLabel(self.mapnpc)
@@ -213,16 +208,10 @@ class Ui_Widget(object):
         self.mapnpc.setAccessibleName("")
 #endif // QT_CONFIG(accessibility)
         self.npclabel.setText(QCoreApplication.translate("Widget", u"NPC", None))
-        self.npclist.setItemText(0, QCoreApplication.translate("Widget", u"Koaren", None))
-        self.npclist.setItemText(1, QCoreApplication.translate("Widget", u"Mimi Mentor", None))
-        self.npclist.setItemText(2, QCoreApplication.translate("Widget", u"Slugg", None))
 
         self.npcimg.setText(QCoreApplication.translate("Widget", u"TextLabel", None))
         self.npcname.setText(QCoreApplication.translate("Widget", u"Name", None))
         self.maplabel.setText(QCoreApplication.translate("Widget", u"Map", None))
-        self.maplist.setItemText(0, QCoreApplication.translate("Widget", u"Nosville", None))
-        self.maplist.setItemText(1, QCoreApplication.translate("Widget", u"Prairie des mines", None))
-        self.maplist.setItemText(2, QCoreApplication.translate("Widget", u"Plaine ensoleill\u00e9e", None))
 
         self.posxlabel.setText(QCoreApplication.translate("Widget", u"POS X", None))
         self.posylabel.setText(QCoreApplication.translate("Widget", u"POS Y", None))

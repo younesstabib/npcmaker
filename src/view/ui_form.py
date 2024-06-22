@@ -203,7 +203,7 @@ class Ui_Widget(object):
     # setupUi
 
     def retranslateUi(self, Widget):
-        Widget.setWindowTitle(QCoreApplication.translate("Widget", u"Widget", None))
+        Widget.setWindowTitle(QCoreApplication.translate("Widget", u"NPC Maker", None))
 #if QT_CONFIG(accessibility)
         self.mapnpc.setAccessibleName("")
 #endif // QT_CONFIG(accessibility)

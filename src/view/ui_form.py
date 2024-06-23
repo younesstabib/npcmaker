@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QTabWidget, QWidget)
+    QTabWidget, QWidget, QMessageBox)
 
 
 class Ui_Widget(object):
@@ -237,3 +237,18 @@ class Ui_Widget(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.shop), QCoreApplication.translate("Widget", u"Shop Item", None))
     # retranslateUi
 
+    @staticmethod
+    def show_message_box(self, text, informtext, title):
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Warning)
+        msg_box.setText(text)
+        msg_box.setInformativeText(informtext)
+        msg_box.setWindowTitle(title)
+        msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+        retval = msg_box.exec()
+
+        if retval == QMessageBox.Ok:
+            print("OK pressed")
+        else:
+            print("Cancel pressed")

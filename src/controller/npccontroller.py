@@ -1,5 +1,4 @@
 from src.services import JsonLoader
-from PySide6.QtWidgets import QMessageBox
 from src.view import Ui_Widget
 from src.model import MapNpcId
 
@@ -7,10 +6,12 @@ class NpcController:
     def __init__(self, view):
         self.view = view
         self.connect_events()
+        self.original_monsters_list = [self.view.npclist.itemText(i) for i in range(self.view.npclist.count())] # Keep monster data in a list for autocompletion
     
     def connect_events(self):
         self.view.npclist.activated.connect(self.on_combobox_npclist_activated)
         self.view.pushButton.clicked.connect(self.on_button_pushButton_activated)
+        self.view.npclist.lineEdit().textEdited.connect(self.updateCompleter)
     
     def on_combobox_npclist_activated(self, index):
         # get selected text
@@ -33,3 +34,8 @@ class NpcController:
         direction = self.view.inputpos.text()
 
         mapnpc = MapNpcId(0, 9, 0, 4750, 0, 0, 0, map_id, pos_x, pos_y, npc_name, npc_id, direction, "", 0)
+
+    def updateCompleter(self, text):
+        # filtering elements based on entered text
+        filtered_items = [item for item in self.original_monsters_list if text.lower() in item.lower()]
+        self.view.model.setStringList(filtered_items if filtered_items else self.original_monsters_list)

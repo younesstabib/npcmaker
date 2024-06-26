@@ -20,10 +20,14 @@ class JsonLoader:
             response.raise_for_status()  # Check if the request was successful
             data = response.json()
             
+            str_list = []
+
             # Extract 'id' and 'name' (uk) and populate the combobox
             results = [{"id": monster["id"], "name_uk": monster["name"]["uk"]} for monster in data]
             for result in results:
                 self.view.npclist.addItem(f"{result['id']} - {result['name_uk']}")
+                str_list.append(f"{result['id']} - {result['name_uk']}")
+            self.view.model.setStringList(str_list)
         except requests.exceptions.RequestException as e:
             print(f"Error fetching JSON data: {e}")
     

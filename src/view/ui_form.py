@@ -10,14 +10,14 @@
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+    QSize, QTime, QUrl, Qt, QStringListModel)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QTabWidget, QWidget, QMessageBox)
+    QTabWidget, QWidget, QMessageBox, QCompleter)
 
 
 class Ui_Widget(object):
@@ -38,11 +38,23 @@ class Ui_Widget(object):
         self.npclabel.setAutoFillBackground(True)
         self.npclabel.setFrameShape(QFrame.StyledPanel)
         self.npclabel.setAlignment(Qt.AlignCenter)
+
+        # NPC List #
         self.npclist = QComboBox(self.mapnpc)
         self.npclist.setObjectName(u"npclist")
         self.npclist.setGeometry(QRect(10, 40, 161, 22))
-        self.npclist.setEditable(False)
+        self.npclist.setEditable(True)
         self.npcimg = QLabel(self.mapnpc)
+
+        # Création d'un modèle de liste
+        self.model = QStringListModel()
+
+        completer = QCompleter(self.model, self.npclist)
+        completer.setCaseSensitivity(Qt.CaseInsensitive)
+        completer.setFilterMode(Qt.MatchContains)
+        self.npclist.setCompleter(completer)
+        # -------- #
+
         self.npcimg.setObjectName(u"npcimg")
         self.npcimg.setGeometry(QRect(10, 70, 161, 201))
         self.npcimg.setAutoFillBackground(True)

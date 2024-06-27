@@ -44,17 +44,17 @@ class Ui_Widget(object):
         self.npclist.setObjectName(u"npclist")
         self.npclist.setGeometry(QRect(10, 40, 161, 22))
         self.npclist.setEditable(True)
-        self.npcimg = QLabel(self.mapnpc)
 
-        # Création d'un modèle de liste
-        self.model = QStringListModel()
+        # creation of a list template
+        self.npclistmodel = QStringListModel()
 
-        completer = QCompleter(self.model, self.npclist)
-        completer.setCaseSensitivity(Qt.CaseInsensitive)
-        completer.setFilterMode(Qt.MatchContains)
-        self.npclist.setCompleter(completer)
+        npcCompleter = QCompleter(self.npclistmodel, self.npclist)
+        npcCompleter.setCaseSensitivity(Qt.CaseInsensitive)
+        npcCompleter.setFilterMode(Qt.MatchContains)
+        self.npclist.setCompleter(npcCompleter)
         # -------- #
 
+        self.npcimg = QLabel(self.mapnpc)
         self.npcimg.setObjectName(u"npcimg")
         self.npcimg.setGeometry(QRect(10, 70, 161, 201))
         self.npcimg.setAutoFillBackground(True)
@@ -70,9 +70,21 @@ class Ui_Widget(object):
         self.maplabel.setAutoFillBackground(True)
         self.maplabel.setFrameShape(QFrame.StyledPanel)
         self.maplabel.setAlignment(Qt.AlignCenter)
+
         self.maplist = QComboBox(self.mapnpc)
         self.maplist.setObjectName(u"maplist")
         self.maplist.setGeometry(QRect(200, 100, 171, 22))
+        self.maplist.setEditable(True)
+
+        # creation of a list template
+        self.maplistmodel = QStringListModel()
+
+        mapCompleter = QCompleter(self.maplistmodel, self.maplist)
+        mapCompleter.setCaseSensitivity(Qt.CaseInsensitive)
+        mapCompleter.setFilterMode(Qt.MatchContains)
+        self.maplist.setCompleter(mapCompleter)
+        # -------- #
+
         self.posxlabel = QLabel(self.mapnpc)
         self.posxlabel.setObjectName(u"posxlabel")
         self.posxlabel.setGeometry(QRect(200, 130, 71, 16))

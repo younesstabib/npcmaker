@@ -7,11 +7,13 @@ class NpcController:
         self.view = view
         self.connect_events()
         self.original_monsters_list = [self.view.npclist.itemText(i) for i in range(self.view.npclist.count())] # Keep monster data in a list for autocompletion
+        self.original_map_list = [self.view.maplist.itemText(i) for i in range(self.view.maplist.count())] # Keep map data in a list for autocompletion
     
     def connect_events(self):
         self.view.npclist.activated.connect(self.on_combobox_npclist_activated)
         self.view.pushButton.clicked.connect(self.on_button_pushButton_activated)
-        self.view.npclist.lineEdit().textEdited.connect(self.updateCompleter)
+        self.view.npclist.lineEdit().textEdited.connect(self.updateNpcCompleter)
+        self.view.maplist.lineEdit().textEdited.connect(self.updateMapCompleter)
     
     def on_combobox_npclist_activated(self, index):
         # get selected text
@@ -35,7 +37,12 @@ class NpcController:
 
         mapnpc = MapNpcId(0, 9, 0, 4750, 0, 0, 0, map_id, pos_x, pos_y, npc_name, npc_id, direction, "", 0)
 
-    def updateCompleter(self, text):
+    def updateNpcCompleter(self, text):
         # filtering elements based on entered text
         filtered_items = [item for item in self.original_monsters_list if text.lower() in item.lower()]
-        self.view.model.setStringList(filtered_items if filtered_items else self.original_monsters_list)
+        self.view.npclistmodel.setStringList(filtered_items if filtered_items else self.original_monsters_list)
+
+    def updateMapCompleter(self, text):
+        # filtering elements based on entered text
+        filtered_items = [item for item in self.original_map_list if text.lower() in item.lower()]
+        self.view.maplistmodel.setStringList(filtered_items if filtered_items else self.original_map_list)

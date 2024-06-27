@@ -27,7 +27,7 @@ class JsonLoader:
             for result in results:
                 self.view.npclist.addItem(f"{result['id']} - {result['name_uk']}")
                 str_list.append(f"{result['id']} - {result['name_uk']}")
-            self.view.model.setStringList(str_list)
+            self.view.npclistmodel.setStringList(str_list)
         except requests.exceptions.RequestException as e:
             print(f"Error fetching JSON data: {e}")
     
@@ -53,6 +53,7 @@ class JsonLoader:
             sorted_results = sorted(results, key=lambda x: x["id"])
             for result in sorted_results:
                 self.view.maplist.addItem(f"{result['id']} - {result['name_uk']}")
+            self.view.maplistmodel.setStringList(results)
         except requests.exceptions.RequestException as e:
             print(f"Error fetching JSON data: {e}")
     

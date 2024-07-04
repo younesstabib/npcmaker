@@ -17,8 +17,19 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QTabWidget, QWidget, QMessageBox, QCompleter)
+    QTabWidget, QWidget, QMessageBox, QCompleter, QVBoxLayout, QDialog)
 
+class ModalDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__()
+
+        self.setWindowTitle("Map")
+        self.setModal(True)
+
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel("Ceci est une fenêtre modale"))
+        self.setLayout(layout)
+        self.resize(300, 300)
 
 class Ui_Widget(object):
     def setupUi(self, Widget):
@@ -116,6 +127,9 @@ class Ui_Widget(object):
         self.pushButton = QPushButton(self.mapnpc)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setGeometry(QRect(300, 270, 75, 24))
+        self.showmapbutton = QPushButton(self.mapnpc)
+        self.showmapbutton.setObjectName(u"showmapbutton")
+        self.showmapbutton.setGeometry(QRect(200, 270, 75, 24))
         self.tabWidget.addTab(self.mapnpc, "")
         self.shopitem = QWidget()
         self.shopitem.setObjectName(u"shopitem")
@@ -241,6 +255,7 @@ class Ui_Widget(object):
         self.posylabel.setText(QCoreApplication.translate("Widget", u"POS Y", None))
         self.maplabel_2.setText(QCoreApplication.translate("Widget", u"Direction", None))
         self.pushButton.setText(QCoreApplication.translate("Widget", u"Ajouter", None))
+        self.showmapbutton.setText(QCoreApplication.translate("Widget", u"Show Map", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mapnpc), QCoreApplication.translate("Widget", u"NPC", None))
         self.npclabel_2.setText(QCoreApplication.translate("Widget", u"Map NPC ID", None))
         self.npclabel_3.setText(QCoreApplication.translate("Widget", u"Name", None))
@@ -276,3 +291,8 @@ class Ui_Widget(object):
             print("OK pressed")
         else:
             print("Cancel pressed")
+
+    def modal(self):    
+        # Créer une instance de la fenêtre modale
+        modal = ModalDialog(self)
+        modal.exec()

@@ -14,6 +14,7 @@ class NpcController:
         self.view.pushButton.clicked.connect(self.on_button_pushButton_activated)
         self.view.npclist.lineEdit().textEdited.connect(self.updateNpcCompleter)
         self.view.maplist.lineEdit().textEdited.connect(self.updateMapCompleter)
+        self.view.showmapbutton.clicked.connect(self.on_button_showmap_activated)
     
     def on_combobox_npclist_activated(self, index):
         # get selected text
@@ -36,6 +37,9 @@ class NpcController:
         direction = self.view.inputpos.text()
 
         mapnpc = MapNpcId(0, 9, 0, 4750, 0, 0, 0, map_id, pos_x, pos_y, npc_name, npc_id, direction, "", 0)
+
+    def on_button_showmap_activated(self, index):
+        self.view.modal()
 
     def updateNpcCompleter(self, text):
         # filtering elements based on entered text

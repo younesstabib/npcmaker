@@ -20,16 +20,31 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QTabWidget, QWidget, QMessageBox, QCompleter, QVBoxLayout, QDialog)
 
 class ModalDialog(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, ui_widget=None):
         super().__init__()
+        self.ui_widget = ui_widget
 
         self.setWindowTitle("Map")
         self.setModal(True)
 
         layout = QVBoxLayout()
-        layout.addWidget(QLabel("Ceci est une fenêtre modale"))
+        image_label = QLabel()
+        pixmap = QPixmap("1.png")  # Remplace "image.png" par le chemin de ton image
+        image_label.setPixmap(pixmap.scaled(0, 0, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        image_label.setFixedSize(160, 180)
+        image_label.setPixmap(pixmap)
+        layout.addWidget(image_label)
+
         self.setLayout(layout)
-        self.resize(300, 300)
+
+        
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            x = event.position().x()
+            y = event.position().y()
+            print(f"Clicked at x={x}, y={y}")
+            self.ui_widget.inputposx.setText(str(x))
+            self.ui_widget.inputposy.setText(str(y))
 
 class Ui_Widget(object):
     def setupUi(self, Widget):
@@ -294,5 +309,5 @@ class Ui_Widget(object):
 
     def modal(self):    
         # Créer une instance de la fenêtre modale
-        modal = ModalDialog(self)
+        modal = ModalDialog(self, self)
         modal.exec()

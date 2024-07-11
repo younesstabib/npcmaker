@@ -86,3 +86,31 @@ class JsonLoader:
             raise Exception("Image tag not found or does not have 'src' attribute")
 
         return img_tag['src']
+    
+    def get_height_and_width(self):
+        url = "https://itempicker.atlagaming.eu/maps.json"
+
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+            results = []
+            for map_key, map_data in data.items():
+                if isinstance(map_data, dict):
+                    map_id = map_data.get("id", "id manquant")
+                    name_dict = map_data.get("name", {})
+                    width_map = map_data.get("w", "0")
+                    height_map = map_data.get("h", "0")
+                    if isinstance(name_dict, dict) and "uk" in name_dict:
+                        map_name_uk = name_dict["uk"]
+                    else:
+                        map_name_uk = "none"
+                    results.append({"id": map_id, "name_uk": map_name_uk})
+                else:
+                    print(f"structure de key : {map_key}")
+            sorted_results = sorted(results, key=lambda x: x["id"])
+            for result in sorted_results:
+                self.view.maplist.addItem(f"{result['w']} - {result['h']} - {result['id']} - {result['name_uk']}")
+            self.view.maplistmodel.setStringList(results)
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching JSON data: {e}")
